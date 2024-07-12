@@ -20,9 +20,15 @@ public class Rectangle extends Shape {
 
     @Override
     public void drawOutline(Graphics g) {
-        if ((getWidth() != 0) && (getHeight() != 0)) {
-            g.setColor(getColor());
-            g.drawRect(getX(), getY(), getWidth(), getHeight());
+        g.setColor(getColor());
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+
+        g2.drawRect(getX(), getY(), getWidth(), getHeight());
+
+        if (isSelected()) {
+            g.setColor(Color.GREEN);
+            g.drawRect(getX() - 1, getY() - 1, getWidth() + 5, getHeight() + 5);
         }
     }
 }

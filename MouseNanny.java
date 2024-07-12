@@ -17,16 +17,23 @@ public class MouseNanny implements MouseListener, MouseMotionListener {
 	public void mousePressed(MouseEvent e) {
 		tmpx = e.getX();
 		tmpy = e.getY();
-
 		selectedShape = getShapeAt(e.getX(), e.getY());
 		if (selectedShape != null){
 			Officer.setSelectedShape(selectedShape);
+			selectedShape.setSelected(!selectedShape.isSelected());
 			offsetX = tmpx - selectedShape.getX();
 			offsetY = tmpy -selectedShape.getY();
+			Officer.tellYourBoss();
 		}
 	}
 
 	public void mouseReleased(MouseEvent e){
+		if (selectedShape != null) {
+			selectedShape.setX(e.getX() - offsetX);
+			selectedShape.setY(e.getY() - offsetY);
+			Officer.tellYourBoss();
+		}
+
 		int[] p = Officer.getShapeParameters();
 		if (Officer.getShape().equals("Rectangle")) {
 			Officer.getShapeStack().push(new Rectangle(p[0], p[1], p[2], p[3], Officer.getColor(), Officer.getShape()));
@@ -34,13 +41,14 @@ public class MouseNanny implements MouseListener, MouseMotionListener {
 			Officer.getShapeStack().push(new Circle(p[0], p[1], p[2], p[3], Officer.getColor(), Officer.getShape()));
 		} else if (Officer.getShape().equals("Arc")) {
 			Officer.getShapeStack().push(new Arc(p[0], p[1], p[2], p[3], Officer.getColor(), Officer.getShape()));
-		} else if (Officer.getShape().equals("Line")){
+		} else if (Officer.getShape().equals("Line")) {
 			Officer.getShapeStack().push(new Line(p[0], p[1], p[2], p[3], Officer.getColor(), Officer.getShape()));
 		} else {
 			System.out.println("Bad Shape name");
 		}
 		Officer.clearShapeParameters();
 		Officer.tellYourBoss();
+
 	}
 
 	public void mouseDragged(MouseEvent e) {
@@ -57,6 +65,34 @@ public class MouseNanny implements MouseListener, MouseMotionListener {
 		}
 	}
 
+
+	public void mouseClicked(MouseEvent e) {
+		if (e.getClickCount() == 1) {
+			Shape clickedShape = getShapeAt(e.getX(), e.getY());
+			if (clickedShape != null) {
+				clickedShape.setSelected(!clickedShape.isSelected());
+				for (Shape shape : Officer.getShapeStack()) {
+					if (shape.isSelected() && shape != clickedShape) {
+						shape.setSelected(false);
+					}
+				}
+				clickedShape.setSelected(!clickedShape.isSelected());
+				Officer.tellYourBoss();
+
+				Color newColor = JColorChooser.showDialog(null, "Choose a color", selectedShape.getColor());
+				if(newColor != null){
+					selectedShape.setColor(newColor);
+					Officer.tellYourBoss();
+				}
+			}
+		}
+
+
+
+	}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {}
 	private int[] calculateShapeParameters(int x, int y) {
 		int[] parameters = new int[4];
 		if(Officer.getShape().equals("Line")){
@@ -124,17 +160,4 @@ public class MouseNanny implements MouseListener, MouseMotionListener {
 		double dy  = y -yy;
 		return Math.sqrt(dx * dx + dy * dy);
 	}
-
-	public void mouseClicked(MouseEvent e) {
-		if(e.getClickCount() == 2 && selectedShape != null){
-			Color newColor = JColorChooser.showDialog(null, "Choose a color", selectedShape.getColor());
-			if(newColor != null){
-				selectedShape.setColor(newColor);
-				Officer.tellYourBoss();
-			}
-		}
-	}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
 }

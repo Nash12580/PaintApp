@@ -16,9 +16,15 @@ public class Line extends Shape{
 
     @Override
     public void drawOutline(Graphics g) {
-        if ((getWidth() != 0) && (getHeight() != 0)) {
-            g.setColor(getColor());
-            g.drawLine(getX(), getY(), getX() + getWidth(), getY() + getHeight());
+        g.setColor(getColor());
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(2));
+
+        g2.drawLine(getX(), getY(), getX() + getWidth(),  getY() + getHeight());
+
+        if (isSelected()) {
+            g.setColor(Color.GREEN);
+            g.drawLine(getX() - 10, getY() - 5, getX() + getWidth() , getY() + getHeight());
         }
     }
 }

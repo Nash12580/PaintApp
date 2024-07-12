@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Arc extends Shape {
 
-    public Arc(int x, int y, int width, int height, Color color, String shapeName){
+    public Arc(int x, int y, int width, int height, Color color, String shapeName) {
         super(x, y, width, height, color, shapeName);
     }
 
@@ -20,9 +20,15 @@ public class Arc extends Shape {
 
     @Override
     public void drawOutline(Graphics g) {
-        if ((getWidth() != 0) && (getHeight() != 0)) {
-            g.setColor(getColor());
-            g.drawArc(getX(), getY(), getWidth(), getHeight(), 0, 180);
+        g.setColor(getColor());
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+
+        g2.drawArc(getX(), getY(), getWidth(), getHeight(), 0, 180);
+
+        if (isSelected()) {
+            g.setColor(Color.GREEN);
+            g.drawArc(getX() - 5, getY() - 5, getWidth() + 10, getHeight() + 10, 0, 180);
         }
     }
 }

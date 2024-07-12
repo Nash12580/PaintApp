@@ -20,9 +20,15 @@ public class Circle extends Shape {
 
     @Override
     public void drawOutline(Graphics g) {
-        if ((getWidth() != 0) && (getHeight() != 0)) {
-            g.setColor(getColor());
-            g.drawOval(getX(), getY(), getWidth(), getHeight());
+        g.setColor(getColor());
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(3));
+
+        g2.drawOval(getX(), getY(), getWidth(), getHeight());
+
+        if (isSelected()) {
+            g.setColor(Color.GREEN);
+            g.drawOval(getX() - 5, getY() - 5, getWidth() + 10, getHeight() + 10);
         }
     }
 }
