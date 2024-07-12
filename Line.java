@@ -7,7 +7,7 @@ public class Line extends Shape{
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int x, int y, int width, int height) {
         if ((getWidth() != 0) && (getHeight() != 0)) {
             g.setColor(getColor());
             g.drawLine(getX(), getY(), getX() + getWidth(), getY() + getHeight());
