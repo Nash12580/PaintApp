@@ -11,7 +11,7 @@ public class Arc extends Shape {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int x, int y, int width, int height) {
         if ((getWidth() != 0) && (getHeight() != 0)) {
             g.setColor(getColor());
             g.fillArc(getX(), getY(), getWidth(), getHeight(), 0, 180);

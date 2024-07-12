@@ -26,7 +26,7 @@ public class Shape {
         selected = false;
     }
 
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int x, int y, int width, int height) {
         System.out.println("Shape draw");
         g.setColor(color);
         switch (shapeName) {
