@@ -85,6 +85,12 @@ public class MouseNanny implements MouseListener, MouseMotionListener {
 					Officer.tellYourBoss();
 				}
 			}
+		}else if(e.getClickCount() == 2){
+
+		}else if(e.getClickCount() == 3){
+
+		}else if(e.getClickCount() == 4){
+
 		}
 
 

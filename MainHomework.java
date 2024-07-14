@@ -1,7 +1,5 @@
 package javiergs.gui.paint.gamma;
 import javax.swing.*;
-import java.awt.event.*;
-import javax.tools.Tool;
 
 
 /** @author Nashali Vicente Lopez **/
