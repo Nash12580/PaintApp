@@ -3,7 +3,7 @@ package javiergs.gui.paint.gamma;
 import javax.swing.*;
 import java.awt.*;
 
-public class AboutME {
+public class AboutMe {
     public static void show(JFrame parent) {
         JTextArea textArea = new JTextArea(10, 40);
         textArea.setText("PaintApp\n\n" +

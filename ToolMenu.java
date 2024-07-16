@@ -1,10 +1,12 @@
 package javiergs.gui.paint.gamma;
+
 import javax.swing.*;
+import java.awt.event.*;
 
-/** @author Nashali Vicente Lopez**/
+/** @author Nashali Vicente Lopez **/
 
-public class ToolMenu extends JMenuBar{
-    public ToolMenu(){
+public class ToolMenu extends JMenuBar {
+    public ToolMenu() {
         ActionNanny actionNanny = new ActionNanny();
 
         JMenu Colors = new JMenu("Colors");
@@ -65,5 +67,16 @@ public class ToolMenu extends JMenuBar{
         add(Shapes);
         add(Colors);
 
+        // Adding the About Me button directly to the MenuBar
+        JMenuItem aboutMeItem = new JMenuItem("About Me");
+        aboutMeItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutMe.show(null);
+            }
+        });
+
+        add(aboutMeItem);
     }
 }
+
