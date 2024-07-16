@@ -18,15 +18,22 @@ public class DrawPanel extends JPanel {
 		g.setColor(new Color(176, 250, 192));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		for (Shape shape : Officer.getShapeStack()) {
-			shape.draw(g, shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
-			if (shape instanceof ClearAction) {
-				g.setColor(new Color(176, 250, 192));
-				g.fillRect(0, 0, getWidth(), getHeight());
-			}
+		for (Component component : Officer.getComponentsStack()) {
+			if(component instanceof Shape shape){
+				shape.draw(g, shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 
-			if (shape.isSelected()){
-				shape.drawOutline(g);
+				if (shape instanceof ClearAction) {
+					g.setColor(new Color(176, 250, 192));
+					g.fillRect(0, 0, getWidth(), getHeight());
+				}
+
+				if (shape.isSelected()){
+					shape.drawOutline(g);
+				}
+
+				if(component instanceof ShapeDecorator shapeDecorator){
+					shapeDecorator.draw(g, shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+				}
 			}
 		}
 
